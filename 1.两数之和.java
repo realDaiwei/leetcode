@@ -20,7 +20,7 @@ class Solution {
         // }
         // return null;
 
-        //用map记录遍历出来的结果
+        //用map记录遍历的结果
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int i = 0; i < nums.length; i++) {
             if (map.containsKey(target - nums[i])) {
