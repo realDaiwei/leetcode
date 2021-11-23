@@ -39,6 +39,7 @@ class Solution {
         queue.addFirst(root);
         while (!queue.isEmpty()) {
             List<Integer> item = new ArrayList<>();
+            // 这个size 是关键点
             int size = queue.size();
             for (int i = 0; i < size; i++) {
                 Node cur = queue.pollLast();
