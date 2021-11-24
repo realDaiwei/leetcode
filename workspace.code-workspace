@@ -1,10 +1,6 @@
 {
 	"folders": [
 		{
-			"name": ".leetcode",
-			"path": "../../.leetcode"
-		},
-		{
 			"name": "leetcode",
 			"path": "."
 		}
