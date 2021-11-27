@@ -37,7 +37,7 @@ class Solution {
         // if (root.right != null) right = minDepth(root.right);
         // return Math.min(left, right) + 1;
 
-        // 循环 yyds
+        // BFS循环 yyds
         int res = 0;
         if (root == null) return res;
         LinkedList<TreeNode> queue = new LinkedList<>();
