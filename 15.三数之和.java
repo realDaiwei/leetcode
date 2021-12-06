@@ -12,22 +12,28 @@ import java.util.List;
 // @lc code=start
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        if (nums.length < 3) return new ArrayList<>();
-        List<List<Integer>> res = new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
+        if (nums.length < 3) return ans;
         Arrays.sort(nums);
-        for (int i = 0; i < nums.length && nums[i] <= 0; i++) {
-            if (i > 0 && nums[i - 1] == nums[i]) continue;
+        for (int i = 0; i < nums.length - 1 && nums[i] <= 0; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
             int lo = i + 1, hi = nums.length - 1;
             while (lo < hi) {
-                if (nums[lo] + nums[hi] == -nums[i]) {
-                    res.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
-                    while (lo < hi && nums[lo + 1] == nums[lo]) lo++;
-                    while (lo < hi && nums[hi - 1] == nums[hi]) hi--;  
+                if (nums[i] + nums[lo] + nums[hi] == 0) {
+                    ans.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
+                    while (lo < hi && nums[lo] == nums[lo + 1]) lo++;
+                    while (lo < hi && nums[hi] == nums[hi - 1]) hi--;
+                } 
+                if (nums[i] + nums[lo] + nums[hi] < 0) {
+                    lo++;
+                } else {
+                    hi--;
                 }
-                if (nums[lo] + nums[hi] + nums[i] < 0) lo++; else hi--;
+                
             }
         }
-        return res;
+        return ans;
+
     }
 }
 // @lc code=end
