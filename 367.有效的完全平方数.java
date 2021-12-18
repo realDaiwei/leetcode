@@ -10,7 +10,7 @@ class Solution {
         if (num == 1) return true;
         long lo = 0, hi = num, mid = 0;
         while (lo < hi) {
-            mid = (lo + hi + 1) >> 1;
+            mid = lo + (hi - lo) / 2 + 1;
             if (mid * mid == num) return true;
             if (mid * mid < num) {
                 lo = mid;

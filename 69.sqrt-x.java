@@ -1,3 +1,4 @@
+
 /*
  * @lc app=leetcode.cn id=69 lang=java
  *
@@ -10,8 +11,8 @@ class Solution {
         if (x == 1) return 1;
         long lo = 0, hi = x, mid = 0;
         while (lo < hi) {
-            mid = (lo + hi + 1) >> 1;
-            if (mid * mid == x) return (int) mid;
+            mid = lo + (hi - lo) / 2 + 1;
+            if (mid * mid == x) return (int)mid;
             if (mid * mid < x) {
                 lo = mid;
             } else {
