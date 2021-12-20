@@ -7,25 +7,18 @@
 // @lc code=start
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        int[] row = null;
-        for (int[] col : matrix) {
-            if (col[0] <= target && col[col.length - 1] >= target) {
-                row = col;
-                break;
-            }
-        }
-        if (row == null) return false;
-        int lo = 0, hi = row.length - 1, mid = 0;
+        int lo = 0, hi = matrix.length * matrix[0].length - 1, mid = 0;
         while (lo < hi) {
             mid = lo + (hi - lo) / 2 + 1;
-            if (row[mid] == target) return true;
-            if (row[mid] > target) {
+            int midTarget = matrix[mid / matrix[0].length][mid % matrix[0].length];
+            if (midTarget == target) return true;
+            if (midTarget > target) {
                 hi = mid - 1;
             } else {
                 lo = mid;
             }
         }
-        return row[lo] == target;
+        return matrix[lo / matrix[0].length][lo % matrix[0].length] == target;
     }
 }
 // @lc code=end
