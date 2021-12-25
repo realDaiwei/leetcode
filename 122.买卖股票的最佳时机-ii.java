@@ -7,13 +7,14 @@
 // @lc code=start
 class Solution {
     public int maxProfit(int[] prices) {
-		int profit = 0;
+		// 可以尽可能多交易，贪心算法，贪心下所有的收益即可
+        int maxProfit = 0;
         for (int i = 1; i < prices.length; i++) {
-           if (prices[i] >= prices[i - 1]) {
-               profit += prices[i] - prices[i - 1];
+            if (prices[i] - prices[i - 1] > 0) {
+                maxProfit += prices[i] - prices[i - 1];
             }
         }
-        return profit;
+        return maxProfit;
     }
 }
 // @lc code=end
