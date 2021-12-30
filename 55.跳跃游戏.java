@@ -7,10 +7,10 @@
 // @lc code=start
 class Solution {
     public boolean canJump(int[] nums) {
-        int pos = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (i > pos) return false;
-            pos = Math.max(pos, i + nums[i]);
+        int maxPos = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (i > maxPos) return false;
+            if (nums[i] + i > maxPos) maxPos = nums[i] + i; 
         }
         return true;
     }
