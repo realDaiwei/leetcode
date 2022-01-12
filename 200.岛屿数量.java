@@ -8,46 +8,59 @@ import java.util.LinkedList;
 
 // @lc code=start
 class Solution {
-
-    private static final int[] y = new int[] {0, -1, 0, 1};
-    private static final int[] x = new int[] {1, 0, -1, 0};
-
     public int numIslands(char[][] grid) {
-        int ans = 0;
+        int cnt = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == '1') {
-                    ans += 1;
-                    bfs(grid, i, j);
+                    bfs(i, j, grid);
+                    cnt += 1;
                 }
             }
         }
-        return ans;
+        return cnt;
     }
 
-    private void bfs(char[][] grid, int m, int n) {
+
+    /**
+     * bfs 遍历
+     * @param x 
+     * @param y
+     * @param grid
+     */
+    private void bfs(int x, int y, char[][] grid) {
         LinkedList<int[]> queue = new LinkedList<>();
-        queue.addLast(new int[]{m, n});
+        queue.addLast(new int[]{x, y});
         while (!queue.isEmpty()) {
             int[] cur = queue.pollFirst();
-            m = cur[0]; n = cur[1];
-            if (m < 0 || m >= grid.length || n < 0 || n >= grid[0].length || grid[m][n] != '1') continue;
-            grid[m][n] = '0';
-            for (int i = 0; i < 4; i++) {
-                queue.addLast(new int[]{m + x[i], n + y[i]});
+            int m = cur[0], n = cur[1];
+            if (m < 0 || m >= grid.length || n < 0 || n >= grid[0].length || grid[m][n] == '0') {
+                continue;
             }
+            grid[m][n] = '0';
+            queue.addLast(new int[]{m + 1, n});
+            queue.addLast(new int[]{m, n + 1});
+            queue.addLast(new int[]{m - 1, n});
+            queue.addLast(new int[]{m, n - 1});
         }
     }
 
-    // private void dfs(char[][] grid, int m, int n) {
-    //     if (m < 0 || m >= grid.length || n < 0 || n >= grid[m].length || grid[m][n] == '0') return;
-    //     grid[m][n] = '0';
-    //     for (int i = 0; i < 4; i++) {
-    //         dfs(grid, m + x[i], n + y[i]);
-    //     }
-    // } 
-
-    
+    /**
+     * dfs遍历
+     * @param x
+     * @param y
+     * @param grid
+     */
+    private void dfs(int x, int y, char[][] grid) {
+        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] == '0') {
+            return;
+        }
+        grid[x][y] = '0';
+        dfs(x + 1, y, grid);
+        dfs(x, y + 1, grid);
+        dfs(x - 1, y, grid);
+        dfs(x, y - 1, grid);
+    }
 }
 // @lc code=end
 

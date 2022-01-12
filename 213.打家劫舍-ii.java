@@ -9,6 +9,7 @@ class Solution {
     public int rob(int[] nums) {
         if (nums.length == 1) return nums[0];
         if (nums.length == 2) return Math.max(nums[0], nums[1]);
+        // 0 ~ nums.lenth - 2 和 1 ～ nums.length - 1
         return Math.max(baseRob(nums, 0, nums.length - 2), baseRob(nums, 1, nums.length - 1));
     }
 
