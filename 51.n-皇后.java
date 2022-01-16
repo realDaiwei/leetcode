@@ -9,61 +9,84 @@ import java.util.List;
 
 // @lc code=start
 class Solution {
+
+    int[] queen, dale, hill, col;
+    
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> ans = new ArrayList<>();
-        if (n == 0) return ans;
-        int[] col = new int[n];
-        int[] hill = new int[n << 1];
-        int[] dale = new int[n << 1];
-        int[] queen = new int[n];
-        slove(0, queen, col, hill, dale, ans);
+        queen = new int[n];
+        dale = new int[n * 2];
+        hill = new int[n * 2];
+        col = new int[n];
+        dfs(0, n, ans);
         return ans;
     }
 
-    private void slove(int row, int[] queen, int[] col, int[] hill, int[] dale, List<List<String>> ans) {
-        if (row >= queen.length) {
-            addResult(queen, ans);
+    private void dfs(int row, int n, List<List<String>> ans) {
+        if (row >= n) {
+            addAns(ans);        
             return;
         }
+        for (int i = 0; i < n; i++) {
+            if (!isOkPos(row, i)) continue;
+            setQueen(row, i);
+            dfs(row + 1, n, ans);
+            remove(row, i);
+        }
+    }
+
+    /**
+     * 添加一个有效答案
+     * @param ans
+     */
+    private void addAns(List<List<String>> ans) {
+        List<String> item = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < queen.length; i++) {
-            if (!isOkPos(i, row, col, hill, dale)) continue;
-            setQueen(i, row, queen, col, hill, dale);
-            slove(row + 1, queen, col, hill, dale, ans);
-            removeQueen(i, row, queen, col, hill, dale);
-        }
-    }
-
-    private void addResult(int[] queue, List<List<String>> ans) {
-        StringBuilder sb;
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < queue.length; i++) {
-            sb = new StringBuilder();
-            for (int j = 0; j < queue.length; j++) {
-                sb.append(queue[i] == j ? "Q" : ".");
+            for (int j = 0; j < queen.length; j++) {
+                sb.append(queen[i] == j ? "Q" : ".");
             }
-            list.add(sb.toString());
+            item.add(sb.toString());
+            sb = new StringBuilder();
         }
-        ans.add(list);
+        ans.add(item);
     }
 
-    private void setQueen(int i, int row, int[] queen, int[] col, int[] hill, int[] dale) {
-        col[i] = 1;
-        hill[i + row] = 1;
-        dale[i - row + col.length] = 1;
-        queen[row] = i;
+    /**
+     * 判断当前位置是否是一个有效的位置
+     * @param x 
+     * @param y
+     * @return
+     */
+    private boolean isOkPos(int x, int y) {
+        return col[y] == 0 && hill[x + y] == 0 && dale[x - y + queen.length] == 0; 
     }
 
-    private void removeQueen(int i, int row, int[] queen, int[] col, int[] hill, int[] dale) {
-        col[i] = 0;
-        hill[i + row] = 0;
-        dale[i - row + col.length] = 0;
-        queen[row] = 0;
+    /**
+     * 设置queen的位置
+     * @param x
+     * @param y
+     */
+    private void setQueen(int x, int y) {
+        queen[x] = y;
+        col[y] = 1;
+        hill[x + y] = 1;
+        dale[x - y + queen.length] = 1;
     }
+    
 
-    private boolean isOkPos(int i, int row, int[] col, int[] hill, int[] dale) {
-        return col[i] != 1 && hill[i + row] != 1 && dale[i - row + col.length] != 1;
+    /**
+     * 移除queen
+     * @param x
+     * @param y
+     */
+    private void remove(int x, int y) {
+        queen[x] = 0;
+        col[y] = 0;
+        hill[x + y] = 0;
+        dale[x - y + queen.length] = 0;
     }
-
+    
 
 }
 // @lc code=end
