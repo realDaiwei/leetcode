@@ -18,6 +18,7 @@ class Solution {
         //     res = Math.max(res, (right - left + 1) * h);
         // }
         // return res;
+
         // 使用栈的方式优化计算，这里需要注意，出栈操作一定要先poll后peek 因为这样利用栈底的-1才会算到最后一个
         int res = 0;
         LinkedList<Integer> stack = new LinkedList<>();
