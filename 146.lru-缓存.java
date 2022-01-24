@@ -33,26 +33,19 @@ class LRUCache /** extends LinkedHashMap<Integer, Integer> **/ {
 
     class Node {
 
-        private int key;
-    
-        private int value;
+        private int key, value;
 
-        private Node prev;
-    
-        private Node next;
+        private Node prev, next;
 
         public Node(int key, int value) {
             this.key = key;
             this.value = value;
         }
-    
     }
 
     private Integer size;
 
-    private Node head; 
-
-    private Node tail;
+    private Node head, tail; 
 
     private Map<Integer, Node> map;
 

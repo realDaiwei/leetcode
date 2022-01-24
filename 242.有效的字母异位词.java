@@ -1,7 +1,5 @@
 import java.util.Arrays;
 
-import javax.xml.transform.stax.StAXResult;
-
 /*
  * @lc app=leetcode.cn id=242 lang=java
  *
@@ -11,11 +9,11 @@ import javax.xml.transform.stax.StAXResult;
 // @lc code=start
 class Solution {
     public boolean isAnagram(String s, String t) {
-        char[] sChar = s.toCharArray();
-        char[] tChar = t.toCharArray();
-        Arrays.sort(sChar);
-        Arrays.sort(tChar);
-        return new String(sChar).equals(new String(tChar));
+        char[] scharArr = s.toCharArray();
+        char[] tcharArr = t.toCharArray();
+        Arrays.sort(scharArr);
+        Arrays.sort(tcharArr);
+        return new String(scharArr).equals(new String(tcharArr));
      }
 }
 // @lc code=end
