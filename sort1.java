@@ -4,9 +4,12 @@ import java.util.Random;
 class Sort {
 
     public static void main(String[] args) {
-        int[] arr = createRandomArr(10);
+        int[] arr = createRandomArr(100);
         //bubbleSort(arr);
-        shellSort(arr);
+        // selectSort(arr);
+        // insertSort(arr);
+        // shellSort(arr);
+        mergeSort(arr);
         printlnArr(arr);
         boolean sortRes = checkSort(arr, true);
         System.out.println("排序结果：" + sortRes);
@@ -84,6 +87,38 @@ class Sort {
             }
         }
         return arr;
+    }
+
+    /**
+     * 归并排序
+     * @param arr
+     * @return
+     */
+    private static int[] mergeSort(int[] arr) {
+        if (arr.length == 0) return arr;
+        merge(arr, 0, arr.length - 1);
+        return arr;
+    }
+
+    /**
+     * merge
+     * @param arr
+     * @param start
+     * @param end
+     */
+    private static void merge(int[] arr, int start, int end) {
+        if (start >= end) return;
+        int mid = (start + end) >> 1; // 左中位数
+        merge(arr, start, mid);
+        merge(arr, mid + 1, end);
+        int cnt = 0, l = start, r = mid + 1;
+        int[] temp = new int[end - start + 1];
+        while (l <= mid && r <= end) {
+            temp[cnt++] = arr[l] < arr[r] ? arr[l++] : arr[r++];
+        }
+        while (l <= mid) temp[cnt++] = arr[l++];
+        while (r <= end) temp[cnt++] = arr[r++];
+        System.arraycopy(temp, 0, arr, start, end - start + 1);
     }
 
     /**
