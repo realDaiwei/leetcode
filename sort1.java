@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.Random;
 
+import javafx.util.converter.NumberStringConverter;
+
 class Sort {
 
     public static void main(String[] args) {
@@ -9,7 +11,8 @@ class Sort {
         // selectSort(arr);
         // insertSort(arr);
         // shellSort(arr);
-        mergeSort(arr);
+        // mergeSort(arr);
+        quickSort(arr);
         printlnArr(arr);
         boolean sortRes = checkSort(arr, true);
         System.out.println("排序结果：" + sortRes);
@@ -108,17 +111,55 @@ class Sort {
      */
     private static void merge(int[] arr, int start, int end) {
         if (start >= end) return;
-        int mid = (start + end) >> 1; // 左中位数
+        int mid = (start + end) >> 1;
         merge(arr, start, mid);
         merge(arr, mid + 1, end);
-        int cnt = 0, l = start, r = mid + 1;
+        int c = 0, l = start, r = mid + 1;
         int[] temp = new int[end - start + 1];
         while (l <= mid && r <= end) {
-            temp[cnt++] = arr[l] < arr[r] ? arr[l++] : arr[r++];
+            temp[c++] = arr[l] < arr[r] ? arr[l++] : arr[r++];
         }
-        while (l <= mid) temp[cnt++] = arr[l++];
-        while (r <= end) temp[cnt++] = arr[r++];
+        while (l <= mid) temp[c++] = arr[l++];
+        while (r <= end) temp[c++] = arr[r++];
         System.arraycopy(temp, 0, arr, start, end - start + 1);
+    }
+
+    /**
+     * 快速排序
+     * @param arr
+     * @return
+     */
+    public static int[] quickSort(int[] arr) {
+        if (arr.length <= 1) return arr; 
+        quickSort(arr, 0, arr.length - 1);
+        return arr;
+    }
+
+    /**
+     * 快速排序
+     * @param arr目标数组
+     * @param l 左边界
+     * @param r 右边界
+     */
+    private static void quickSort(int[] arr, int l, int r) {
+        // terminate
+        if (l >= r) return;
+        // partition
+        int cur = arr[l], j = l;
+        for (int i = l + 1; i <= r; i++) {
+            if (cur > arr[i]) {
+                j++;
+                int num = arr[i];
+                arr[i] = arr[j];
+                arr[j] = num;
+            }
+        }
+        int num = arr[l];
+        arr[l] = arr[j];
+        arr[j] = num;
+        // drill down
+        quickSort(arr, l, j - 1); 
+        quickSort(arr, j + 1, r);
     }
 
     /**
