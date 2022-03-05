@@ -9,11 +9,11 @@ import java.util.Arrays;
 // @lc code=start
 class Solution {
     public boolean isAnagram(String s, String t) {
-        char[] scharArr = s.toCharArray();
-        char[] tcharArr = t.toCharArray();
-        Arrays.sort(scharArr);
-        Arrays.sort(tcharArr);
-        return new String(scharArr).equals(new String(tcharArr));
+        char[] sChar = s.toCharArray();
+        char[] tchar = t.toCharArray();
+        Arrays.sort(sChar);
+        Arrays.sort(tchar);
+        return new String(sChar).equals(new String(tchar));
      }
 }
 // @lc code=end
