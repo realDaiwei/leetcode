@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -23,12 +23,7 @@ class Solution {
     }
 
     private boolean isAnagram(int[] arr1, int[] arr2) {
-        for (int i = 0; i < 26; i++) {
-            if (arr1[i] != arr2[i]) {
-                return false;
-            }
-        }
-        return true;
+        return Arrays.equals(arr1, arr2);
     }
 
     private int[] toArr(String str) {
